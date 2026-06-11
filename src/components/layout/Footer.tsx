@@ -1,7 +1,7 @@
 import { Instagram, Facebook, MessageCircle, Mail } from 'lucide-react'
 
 const redes = [
-  { icon: MessageCircle, href: 'https://wa.me/50378547844', label: 'WhatsApp' },
+  { icon: MessageCircle, href: 'https://wa.me/50368423084', label: 'WhatsApp' },
   {
     icon: Instagram,
     href: 'https://instagram.com/miguelmportillo02',

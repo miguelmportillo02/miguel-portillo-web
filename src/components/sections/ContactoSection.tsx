@@ -14,16 +14,16 @@ const canales: Canal[] = [
   {
     icon: MessageCircle,
     label: 'WhatsApp',
-    dato: '+503 7854-7844',
-    href: 'https://wa.me/50378547844',
-    color: '#25D366',
-  },
-  {
-    icon: MessageCircle,
-    label: 'WhatsApp',
     dato: '+503 6842-3084',
     href: 'https://wa.me/50368423084',
     color: '#25D366',
+  },
+  {
+    icon: Mail,
+    label: 'Correo',
+    dato: 'miguelmportillo02@gmail.com',
+    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=miguelmportillo02@gmail.com&su=Solicitud%20de%20servicio',
+    color: '#E85D1A',
   },
   {
     icon: Instagram,
@@ -38,13 +38,6 @@ const canales: Canal[] = [
     dato: 'Miguel Portillo',
     href: 'https://facebook.com/share/18oDvt62hK/',
     color: '#1877F2',
-  },
-  {
-    icon: Mail,
-    label: 'Correo',
-    dato: 'miguelmportillo02@gmail.com',
-    href: 'https://mail.google.com/mail/?view=cm&fs=1&to=miguelmportillo02@gmail.com&su=Solicitud%20de%20servicio',
-    color: '#E85D1A',
   },
 ]
 

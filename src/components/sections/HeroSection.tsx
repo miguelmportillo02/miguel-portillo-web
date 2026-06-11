@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { MessageCircle, ChevronDown } from 'lucide-react'
 import { useScrollFade } from '@/hooks/useScrollFade'
 
-const WHATSAPP_PRINCIPAL = 'https://wa.me/50378547844'
+const WHATSAPP_PRINCIPAL = 'https://wa.me/50368423084'
 
 export default function HeroSection() {
   const opacity = useScrollFade()
