@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* ============================================================
+   VARIABLES DE MARCA — MIGUEL PORTILLO
+   ============================================================ */
+:root {
+  /* Componente hero CybercoreBackground (adaptado a paleta MP) */
+  --bg-color: #0d1b3e; /* Navy MP — fondo hero */
+  --light-color: #00c8ff; /* Cian eléctrico — rayos principales */
+  --highlight-color: #e85d1a; /* Naranja MP — rayos de acento */
+  --glow-color-1: rgba(0, 200, 255, 0.7);
+  --glow-color-2: rgba(232, 93, 26, 0.4);
+  --highlight-glow: rgba(232, 93, 26, 0.6);
+
+  /* Variables de marca adicionales */
+  --mp-navy: #0d1b3e;
+  --mp-orange: #e85d1a;
+  --mp-steel: #7b8fa1;
+  --mp-light: #f4f6f9;
+  --mp-dark: #1a1a2e;
+}
+
+/* ============================================================
+   THEME TOKENS (Tailwind 4) — generan utilidades:
+   bg-mp-orange, text-mp-steel, font-barlow-condensed, etc.
+   ============================================================ */
+@theme inline {
+  --color-mp-navy: var(--mp-navy);
+  --color-mp-orange: var(--mp-orange);
+  --color-mp-steel: var(--mp-steel);
+  --color-mp-light: var(--mp-light);
+  --color-mp-dark: var(--mp-dark);
+
+  --font-barlow-condensed: "Barlow Condensed", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--mp-light);
+  color: var(--mp-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   FADE-OUT DEL HERO (transición hacia el contenido)
+   ============================================================ */
+.hero-fade-mask {
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
