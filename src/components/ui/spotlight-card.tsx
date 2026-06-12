@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type ReactNode } from 'react'
+import React, { useEffect, useRef, useState, type ReactNode } from 'react'
 
 interface GlowCardProps {
   children: ReactNode
@@ -35,7 +35,22 @@ const GlowCard: React.FC<GlowCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null)
   const innerRef = useRef<HTMLDivElement>(null)
 
+  // El efecto de luz solo se activa en dispositivos con mouse (escritorio).
+  // En móvil/táctil es pesado (lag en Android) y no renderiza bien (iOS),
+  // así que mostramos una tarjeta limpia con borde normal.
+  const [interactive, setInteractive] = useState(false)
+
   useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const update = () => setInteractive(mq.matches)
+    update()
+    mq.addEventListener?.('change', update)
+    return () => mq.removeEventListener?.('change', update)
+  }, [])
+
+  useEffect(() => {
+    if (!interactive) return
     const syncPointer = (e: PointerEvent) => {
       const { clientX: x, clientY: y } = e
       if (cardRef.current) {
@@ -53,7 +68,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
     }
     document.addEventListener('pointermove', syncPointer)
     return () => document.removeEventListener('pointermove', syncPointer)
-  }, [])
+  }, [interactive])
 
   const { base, spread } = glowColorMap[glowColor]
 
@@ -62,6 +77,30 @@ const GlowCard: React.FC<GlowCardProps> = ({
     return sizeMap[size]
   }
 
+  const layoutClasses = `${getSizeClasses()} ${
+    !customSize ? 'aspect-[3/4] grid grid-rows-[1fr_auto]' : 'flex flex-col'
+  } rounded-2xl relative p-4 gap-4 ${className}`
+
+  // --- Versión móvil/táctil: tarjeta limpia, sin efectos pesados ---
+  if (!interactive) {
+    const staticStyles: React.CSSProperties = {}
+    if (width !== undefined) {
+      staticStyles.width = typeof width === 'number' ? `${width}px` : width
+    }
+    if (height !== undefined) {
+      staticStyles.height = typeof height === 'number' ? `${height}px` : height
+    }
+    return (
+      <div
+        style={staticStyles}
+        className={`${layoutClasses} border border-mp-steel/25 bg-white shadow-sm`}
+      >
+        {children}
+      </div>
+    )
+  }
+
+  // --- Versión escritorio: borde con luz tipo spotlight ---
   const getInlineStyles = (): React.CSSProperties => {
     const baseStyles: Record<string, string | number> = {
       '--base': base,
@@ -154,9 +193,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
         ref={cardRef}
         data-glow
         style={getInlineStyles()}
-        className={`${getSizeClasses()} ${
-          !customSize ? 'aspect-[3/4] grid grid-rows-[1fr_auto]' : 'flex flex-col'
-        } rounded-2xl relative shadow-[0_1rem_2rem_-1rem_black] p-4 gap-4 backdrop-blur-[5px] ${className}`}
+        className={`${layoutClasses} shadow-[0_1rem_2rem_-1rem_black] backdrop-blur-[5px]`}
       >
         <div ref={innerRef} data-glow></div>
         {children}
